@@ -37,7 +37,8 @@
 <script>
     const { createFFmpeg, fetchFile } = FFmpeg;
     const ffmpeg = createFFmpeg({ 
-        log: true, 
+        log: true, // This will help us see exactly where it's stuck in the console
+        mainName: 'main',
         corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' 
     });
 
