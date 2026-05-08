@@ -28,30 +28,38 @@
 </div>
 
 <!-- 1. The Video Engine Library -->
+<!-- 1. The Video Engine Library -->
 <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
 
-<!-- 2. Your Security Permit (The file you found!) -->
-<script src="./coi-serviceworker.js"></script>
+<!-- 2. Your Security Permit -->
+<script src="coi-serviceworker.js"></script>
 
-<!-- 3. The logic that starts the engine -->
+<!-- 3. The Engine Logic -->
 <script>
     const { createFFmpeg, fetchFile } = FFmpeg;
     const ffmpeg = createFFmpeg({ 
-        log: true, // This will help us see exactly where it's stuck in the console
-        mainName: 'main',
+        log: true, 
         corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' 
     });
 
     async function init() {
         try {
+            console.log("Starting Engine...");
             await ffmpeg.load();
-            document.getElementById('runBtn').disabled = false;
-            document.getElementById('runBtn').innerText = "Generate Short";
-            console.log("Engine Loaded!");
+            
+            // This finds your button and turns it on
+            const btn = document.getElementById('runBtn');
+            if(btn) {
+                btn.disabled = false;
+                btn.innerText = "Generate Short";
+            }
+            console.log("Engine Loaded and Ready!");
         } catch (e) { 
-            console.error("Security Block:", e); 
+            console.error("Initialization Error:", e); 
         }
     }
+    
+    // This tells the browser to run the "init" function as soon as the page loads
     window.onload = init;
 </script>
 </body>
