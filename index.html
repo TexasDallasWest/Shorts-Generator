@@ -27,34 +27,30 @@
     <video id="preview" style="display:none" muted></video>
 </div>
 
+<!-- 1. The Video Engine Library -->
 <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
-<script src="coi-serviceworker.js"></script>
 
+<!-- 2. Your Security Permit (The file you found!) -->
+<script src="./coi-serviceworker.js"></script>
+
+<!-- 3. The logic that starts the engine -->
 <script>
     const { createFFmpeg, fetchFile } = FFmpeg;
     const ffmpeg = createFFmpeg({ 
-        log: false, 
+        log: true, 
         corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' 
     });
-
-    function log(msg) {
-        const l = document.getElementById('log');
-        l.innerHTML += `<div>> ${msg}</div>`;
-        l.scrollTop = l.scrollHeight;
-    }
 
     async function init() {
         try {
             await ffmpeg.load();
             document.getElementById('runBtn').disabled = false;
             document.getElementById('runBtn').innerText = "Generate Short";
-            log("Ready.");
+            console.log("Engine Loaded!");
         } catch (e) { 
-            log("Security Block. Try refreshing twice."); 
+            console.error("Security Block:", e); 
         }
     }
-
-    // Logic for processing goes here (omitted for brevity, can add back once engine loads)
     window.onload = init;
 </script>
 </body>
