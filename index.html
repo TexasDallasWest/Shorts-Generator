@@ -32,7 +32,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
 
 <!-- 2. Your Security Permit -->
-<script src="./coi-serviceworker.js"></script>
+<script>
+    // This ensures we always find the file regardless of URL parameters
+    const swScript = document.createElement('script');
+    swScript.src = window.location.pathname.replace('index.html', '') + 'coi-serviceworker.js';
+    document.head.appendChild(swScript);
+</script>
 
 <!-- 3. The Engine Logic -->
 <script>
